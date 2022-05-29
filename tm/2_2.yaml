@@ -1,0 +1,38 @@
+name: '2_2'
+source code: |-
+  input: '()[()]{)()]}'
+  blank: ' '
+  start state: start
+  table:
+    start: # Движение вправо, до открытой скобки
+      ['(','{','[','x','y','z']: R
+      ')': {write: 'x', L: opn_rnd}
+      ']': {write: 'y', L: opn_sqr}
+      '}': {write: 'z', L: opn_fig}
+      ' ': {L: to_last}
+    opn_rnd: # Ищем открывающую круглую скобку
+      [' ','[','{']: {R: err} 
+      ['x','y','z',']','}']: L
+      '(': {write: 'x', R: start}
+    opn_sqr: # Ищем открывающую квадратную скобку
+      [' ','(','{']: {R: err} 
+      ['x','y','z',')','}']: L
+      '[': {write: 'y', R: start}
+    opn_fig: # Ищем открывающую фигурную скобку
+      [' ','(','[']: {R: err} 
+      ['x','y','z',')',']']: L
+      '{': {write: 'z', R: start}
+    to_last:
+      ['(','[','{']: {R: err}
+      ['x','y','z']: {R: done}
+    done:
+    err:
+      
+positions:
+  start: {x: 639.39, y: 110.56}
+  opn_rnd: {x: 433.09, y: 309.79}
+  opn_sqr: {x: 161.84, y: 112.2}
+  opn_fig: {x: 666.38, y: 378.23}
+  to_last: {x: 309.62, y: 251.14}
+  done: {x: 218.13, y: 188.41}
+  err: {x: 162.18, y: 374.79}

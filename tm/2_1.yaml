@@ -1,0 +1,52 @@
+name: '2_1'
+source code: |-
+  input: '0001122'
+  blank: ' '
+  start state: start
+  table:
+    start:
+      '0': {write: 'x', R: ch_one} # 0 на х
+      ['y','z']: R
+      ' ': {L: done}
+    ch_one:
+      ['0','y']: R
+      '1': {write: 'y', R: ch_two} # 1 на y
+      ' ': {L: err}
+    ch_two:
+      ['0','1','z']: R
+      '2': {write: 'z', L: ch_zero} # 2 на z
+      ' ': {L: err}
+    ch_zero:
+      ['0','1','y','z']: L
+      'x': {R: start}
+      ' ': {L: err}
+    done:
+    err:
+   
+positions:
+  start: {x: 115.12, y: 215.12}
+  ch_one: {x: 295.16, y: 215.57}
+  ch_two: {x: 296.2, y: 343.19}
+  ch_zero: {x: 114.33, y: 342.22}
+  done: {x: 116.27, y: 103.55}
+  err: {x: 203.23, y: 268.99}
+editor contents: |-
+  input: '001122'
+  blank: ' '
+  start state: start
+  table:
+    start:
+      '0': {write: 'x', R: ch_one} # 0 на х
+      ['y','z']: R
+      ' ': {L: done}
+    ch_one:
+      ['0','y']: R
+      '1': {write: 'y', R: ch_two} # 1 на y
+    ch_two:
+      ['0','1','z']: R
+      '2': {write: 'z', L: ch_zero} # 2 на z
+    ch_zero:
+      ['0','1','y','z']: L
+      'x': {R: start}
+    done:
+   

@@ -1,0 +1,48 @@
+name: '1_2'
+source code: |
+  input: '111*11'
+  blank: ' '
+  start state: each_first
+  table:
+    # Копируем second, first раз, уменьшая first, создавая каждый раз одну копию
+    each_first: # Уменьшаем first на единицу 
+      '1': {write: ' ', R: to_second}
+      '*': {R: skip}
+    to_second: # Движение к началу second 
+      '1': R
+      '*': {R: each_second} # Копирование
+    next_first:
+      ' ': {write: '1', R: each_first}
+      ['1','*']: L
+    skip: # Движение к результату
+      '1': R
+      ' ': {R: done}
+    done:
+    # Копирование second
+    each_second: 
+      ' ': {L: next_first}
+      '1': {write: ' ', R: sep_r}
+    sep_r:
+      ' ': {R: add}
+      '1': R
+    add:
+      ' ': {write: '1', L: sep_l}
+      '1': R
+    sep_l:
+      ' ': {L: next_second}
+      '1': L
+    next_second:
+      ' ': {write: '1', R: each_second}
+      '1': L
+    
+positions:
+  each_first: {x: 96.69, y: 173.47}
+  to_second: {x: 98.39, y: 318.75}
+  next_first: {x: 258.34, y: 173.09}
+  skip: {x: 96.06, y: 90.49}
+  done: {x: 253.69, y: 89.82}
+  each_second: {x: 257.75, y: 313.74}
+  sep_r: {x: 331.01, y: 249.2}
+  add: {x: 410.18, y: 307.34}
+  sep_l: {x: 411.95, y: 410.84}
+  next_second: {x: 257.47, y: 410.72}

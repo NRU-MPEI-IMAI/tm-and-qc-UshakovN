@@ -1,0 +1,20 @@
+name: '1_1'
+source code: |-
+  input: '111+11'
+  blank: ' ' 
+  start state: to_right 
+  table:
+    to_right: # Движение вправо
+      '1': R 
+      '+': {write: '1', R: to_last} # Меняем + на 1 
+    to_last: # Движение в конец
+      '1': R
+      ' ': {L: del_last}  
+    del_last: # Удаляем последнюю 1
+      '1': {write: ' ', R: done}
+    done:
+positions:
+  to_right: {x: 212.39, y: 274.64}
+  to_last: {x: 344.9, y: 274.97}
+  del_last: {x: 469.47, y: 274.67}
+  done: {x: 584.75, y: 273.65}
